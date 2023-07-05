@@ -1,3 +1,36 @@
 body{
     background-color: grey;
 }
+
+
+
+
+/* Book Glossary Container */
+main{
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    
+    /* Book Card Styles */
+    .book-card{
+        margin-top: 10px;
+        padding: 20px;
+        background-color: yellow;
+        
+        .description{
+
+            
+            > p{
+                padding-bottom: 10px;
+                border-bottom: 1px black solid;
+            }
+        }
+
+
+        .action-btns{
+            margin: 10px 0px;
+        }
+    }
+     
+}

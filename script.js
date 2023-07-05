@@ -33,5 +33,31 @@ form.addEventListener('submit', (e)=>{
 function addBookToLibrary(title, author, pages, readInput){
     let newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook)
+
+    renderBookElement()
 }
 
+// Dom manipulation
+let main = document.querySelector('main')
+
+
+function renderBookElement(){
+
+    
+    let book_card = document.createElement("div")
+    book_card.classList.add("book-card")
+    book_card.innerHTML = `
+            <div class="description">
+                <h2>Harry Potter</h2>
+                <h3>by JK Rolling</h3>
+                <p>Pages: 312</p>
+            </div>
+            <div class="action-btns">
+                <button class="read">Not Read</button>
+                <button class="del">Delete</button>
+            </div>
+            <div class="status">On Progress</div>
+    `
+    //  Append to main
+    main.appendChild(book_card);
+}
