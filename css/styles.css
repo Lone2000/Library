@@ -25,3 +25,8 @@ main {
 .book-card .action-btns {
     margin: 10px 0px;
 }
+
+
+.book-card .hidden{
+    display: none;
+}

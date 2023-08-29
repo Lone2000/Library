@@ -1,11 +1,14 @@
 // Book objects inside an array 
 let myLibrary = [];
 
-function Book(title, author, pages, read){
+let nextId = 0; 
+
+function Book(title, author, pages, read,id){
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+    this.id = id;
 }
 
 
@@ -37,13 +40,14 @@ form.addEventListener('submit', (e)=>{
     let readInput = document.getElementById("read").value;
 
 
-
-    addBookToLibrary(titleInput, authorInput, pagesInput, readInput);
+    id = nextId++;
+    addBookToLibrary(titleInput, authorInput, pagesInput, readInput, id);
 })
 
-function addBookToLibrary(title, author, pages, readInput){
+function addBookToLibrary(title, author, pages, readInput, id){
 
-    let newBook = new Book(title, author, pages, readInput);
+
+    let newBook = new Book(title, author, pages, readInput, id);
 
 
     myLibrary.push(newBook)
@@ -64,6 +68,7 @@ function renderBookElement(Book){
     book_card.classList.add("book-card")
     book_card.innerHTML = `
             <div class="description">
+                <h2 class='hidden'>${Book.id}</h2>
                 <h2>${Book.title}</h2>
                 <h3>by ${Book.author}</h3>
                 <p>Pages: ${Book.pages}</p>
@@ -91,17 +96,26 @@ main.addEventListener('click', (e)=>{
     }
 })
 
-  // Read Status
-  main.addEventListener('click' , (e)=>{
-    if(e.target.classList.contains('read')){
-        // find which card
-        const book_card = e.target.parentElement.parentElement;
-        // Change status
-        let status = book_card.querySelector(".read");
-        console.log(book_card)
+  // Read Status Toggle
+main.addEventListener('click' , (e) => {
+    if (e.target.classList.contains('read')) {
+        // Find the closest parent book card element
+        const book_card = e.target.closest('.book-card');
+        
+        // Get the index of the book card in your library based on its ID
+        const bookId = parseInt(book_card.querySelector('.description h2').textContent);
+        const bookIndex = myLibrary.findIndex(book => book.id === bookId);
 
-    //     myLibrary.forEach((Book) =>{
-    //         Book.title = 
-    //     })
+        
+        // Toggle the read status in your library data
+        myLibrary[bookIndex].read = (myLibrary[bookIndex].read === "Y") ? "N" : "Y";
+        
+        // Toggle the class on the book card
+        book_card.classList.toggle('read');
+        book_card.classList.toggle('not-read');
+        
+        // Update the button text
+        const readButton = book_card.querySelector('.read');
+        readButton.textContent = myLibrary[bookIndex].status(myLibrary[bookIndex].read);
     }
-})
+});
