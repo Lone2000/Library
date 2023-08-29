@@ -10,8 +10,8 @@ function Book(title, author, pages, read){
 
 
 Book.prototype.status = function (status){
-    if(status.value == "Y"){
-        
+    if(status == "Y"){
+        console.log(status)
         return "Read"
     }
     else{
@@ -98,7 +98,6 @@ main.addEventListener('click', (e)=>{
         const book_card = e.target.parentElement.parentElement;
         // Change status
         let status = book_card.querySelector(".read");
-        console.log(myLibrary)
         console.log(book_card)
 
     //     myLibrary.forEach((Book) =>{
