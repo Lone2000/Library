@@ -1,13 +1,23 @@
 // Book objects inside an array 
 let myLibrary = [];
 
-function Book(title, author, pages){
+function Book(title, author, pages, read){
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
 }
 
+
+Book.prototype.status = function (status){
+    if(status.value == "Y"){
+        
+        return "Read"
+    }
+    else{
+        return "Not Read"
+    }
+}
 // Dom Manipulation
 
 
@@ -27,14 +37,22 @@ form.addEventListener('submit', (e)=>{
     let readInput = document.getElementById("read").value;
 
 
+
     addBookToLibrary(titleInput, authorInput, pagesInput, readInput);
 })
 
 function addBookToLibrary(title, author, pages, readInput){
-    let newBook = new Book(title, author, pages, read);
+
+    let newBook = new Book(title, author, pages, readInput);
+
+
     myLibrary.push(newBook)
 
     renderBookElement(newBook)
+
+    // Read Status
+
+
 }
 
 // Dom manipulation
@@ -42,8 +60,6 @@ let main = document.querySelector('main')
 
 
 function renderBookElement(Book){
-
-    
     let book_card = document.createElement("div")
     book_card.classList.add("book-card")
     book_card.innerHTML = `
@@ -53,10 +69,9 @@ function renderBookElement(Book){
                 <p>Pages: ${Book.pages}</p>
             </div>
             <div class="action-btns">
-                <button class="read">Not Read</button>
+                <button class="read">${Book.status(Book.read)}</button>
                 <button class="del">Delete</button>
             </div>
-            <div class="status">On Progress</div>
     `
     //  Append to main
     main.appendChild(book_card);
@@ -73,5 +88,21 @@ main.addEventListener('click', (e)=>{
         const book_card = e.target.parentElement.parentElement
         // Remove this
         book_card.remove()
+    }
+})
+
+  // Read Status
+  main.addEventListener('click' , (e)=>{
+    if(e.target.classList.contains('read')){
+        // find which card
+        const book_card = e.target.parentElement.parentElement;
+        // Change status
+        let status = book_card.querySelector(".read");
+        console.log(myLibrary)
+        console.log(book_card)
+
+    //     myLibrary.forEach((Book) =>{
+    //         Book.title = 
+    //     })
     }
 })
